@@ -1,0 +1,47 @@
+#{extends 'admin.html' /}
+ 
+ 
+#{ifnot post?.id}
+    <h3>Ecrivez <span>une nouvelle astuce</span></h3>
+#{/ifnot}
+#{else}
+    <h3>Editez <span>cette astuce</span></h3>
+#{/else}
+ 
+#{form @save(post?.id)}
+ 
+    #{ifErrors}
+        <p class="error">
+            Please correct these errors.
+        </p>
+    #{/ifErrors}
+     
+    <p>
+        #{field 'title'}
+        <label>Titre:</label>
+        <input type="text" name="${field.name}" 
+            value="${post?.title}" class="${field.errorClass}" />
+        #{/field}
+    </p>
+ 
+    <p>
+        #{field 'content'}
+        <label>Ecrivez:</label>
+        <textarea name="${field.name}" 
+            class="${field.errorClass}">${post?.content}</textarea>
+        #{/field}
+    </p>
+ 
+    <p>
+        #{field 'tags'}
+        <label>Tags associés:</label>
+        <input type="text" size="50" 
+            name="${field.name}" value="${post?.tags?.join(' ')}" />
+        #{/field}
+    </p>
+    
+    <p>
+        <input type="submit" value="Envoyez!" />
+    </p>
+    
+#{/form}
